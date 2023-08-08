@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculator</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .buttonsmain {
+      display: flex;
+    }
+
+    .maindiv {
+      height: max-content;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding: 30px;
+      border-radius: 27px;
+      background: #e0e0e0;
+      box-shadow: 45px 45px 90px #868686, -45px -45px 90px #ffffff;
+    }
+
+    .screen {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      flex-direction: row;
+      line-height: 100px;
+      margin: 10% 0;
+    }
+
+    .subScreen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px;
+      width: 100%;
+    }
+
+    #CalScreen {
+      font-size: 35px;
+      color: white;
+      width: inherit;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 10px;
+      padding: 10px;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #000;
+      color: white;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px;
+      color: grey;
+      border: none;
+      font-size: 1rem;
+      height: 3rem;
+      font-weight: 900;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .buttons button {
+      width: 100px;
+    }
+
+    .buttons {
+      display: grid;
+      width: 300px;
+      grid-template-columns: 100px 2fr 8fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 200px) and (max-width: 500px) {
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .maindiv {
+        height: 90%;
+        width: 100%;
+        padding: 0;
+      }
+
+      .buttons {
+        grid-template-columns: 70px 2fr 8fr;
+        width: min-content;
+      }
+
+      #questionP {
+        font-size: 1.5rem;
+      }
+
+      .screen {
+        width: 70%;
+      }
+
+      button {
+        width: 4rem !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: max-content;
+        padding: 10px;
+      }
+    }
+
+    .functions {
+      display: flex;
+      gap: 10px;
+      margin-left: 30px;
+      margin-bottom: 3px;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .functions button:hover,
+    .orangedButton:hover {
+      background-color: rgb(245, 153, 120);
+    }
+
+    .functions button,
+    .orangedButton {
+      width: 100px;
+      background-color: rgb(250, 132, 90);
+      color: white;
+    }
+
+    .forDarkMode {
+      color: #000;
+      background-color: #fff;
+    }
+
+    .forLightMode {
+      color: #fff;
+      background-color: black;
+    }
+
+    .modechanger {
+      position: absolute;
+      bottom: 40%;
+      cursor: pointer;
+
+      padding: 10px;
+      border-radius: 10px;
+      user-select: none;
+      left: 30%;
+    }
+  </style>
+  <script>
+    let values1 = "";
+    // getting Numbers function=======================================================
+    function changeNumber(numberGet) {
+      let queselement = document.getElementById("questionP"),
+      anselement = document.getElementById("answerScreen");
+      document.getElementById("questionP2").style.display = "none"
+      queselement.innerHTML += numberGet;
+      values1 = queselement.innerHTML;
+      // let ansnumber = values1.slice(1)
+      anselement.innerHTML = values1;
+    }
+    function concatinater() {
+      let conca = document.querySelector("#questionP").innerHTML;
+      if (conca == 0) {
+      } else {
+        document.querySelector("#questionP").innerHTML = conca.slice(1);
+        document.querySelector("#answerScreen").innerHTML = conca.slice(1);
+      }
+    }
+    // clear qeuestion function======================================================
+    function clearScreen() {
+      document.querySelector("#questionP").innerHTML = "";
+      document.getElementById("questionP2").style.display = "block"
+      document.querySelector("#answerScreen").innerHTML = "";
+      values1 = "";
+      purpose = "";
+      values2 = "";
+    }
+    function splitIntoArray(num) {
+      return Array.from(String(num), Number);
+    }
+    function clearQuestion() { }
+    // anser Getting function========================================================
+    function answerFun() {
+      let p = document.getElementById("answerScreen").innerHTML;
+      document.getElementById("questionP2").style.display = "none"
+      document.getElementById("questionP").innerHTML = eval(p);
+    }
+    function keydownfunc(numkey) {
+      // if (){}
+    }
+    let toggle = true;
+    function toggledark() {
+      let bodyget = document.querySelector("body");
+      let changetext = document.querySelector("button");
+      let modeClass = document.querySelector(".modechanger")
+      if (toggle == true) {
+        modeClass.classList.add("forLightMode");
+        modeClass.classList.remove("forDarkMode")
+        bodyget.style.backgroundColor = "rgba(0,0,0,0.8)"
+        bodyget.style.color = "white"
+        toggle = false;
+      } else if (toggle == false) {
+        toggle = true;
+        modeClass.classList.add("forDarkMode")
+        modeClass.classList.remove("forLightMode")
+        bodyget.style.backgroundColor = "#fff"
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <div class="maindiv">
+    <div class="screen" id="CalScreen">
+      <p id="questionP"></p>
+      <p id="questionP2">0</p>
+      <div class="subScreen" id="answerScreen"></div>
+    </div>
+    <div class="buttonsmain">
+      <div class="buttons">
+        <button id="ac" class="orangedButton" onclick="clearScreen()">
+          C
+        </button>
+        <button class="orangedButton">CE</button>
+        <button class="orangedButton">%</button>
+        <button class="orangedButton">2√x</button>
+        <button class="orangedButton">x<sup>2</sup></button>
+        <button class="orangedButton">1/x</button>
+        <button id="9" onkeydown="keydownfunc(`event`)" value="9" onclick="changeNumber(9)">
+          9
+        </button>
+        <button id="8" onkeydown="keydownfunc(`event`)" value="8" onclick="changeNumber(8)">
+          8
+        </button>
+        <button id="7" onkeydown="keydownfunc(`event`)" value="7" onclick="changeNumber(7)">
+          7
+        </button>
+        <button id="6" onkeydown="keydownfunc(`event`)" value="6" onclick="changeNumber(6)">
+          6
+        </button>
+        <button id="5" onkeydown="keydownfunc(`event`)" value="5" onclick="changeNumber(5)">
+          5
+        </button>
+        <button id="4" onkeydown="keydownfunc(`event`)" value="4" onclick="changeNumber(4)">
+          4
+        </button>
+        <button id="3" onkeydown="keydownfunc(`event`)" value="3" onclick="changeNumber(3)">
+          3
+        </button>
+        <button id="2" onkeydown="keydownfunc(`event`)" value="2" onclick="changeNumber(2)">
+          2
+        </button>
+        <button id="1" onkeydown="keydownfunc(`event`)" value="1" onclick="changeNumber(1)">
+          1
+        </button>
+        <button class="orangedButton">+/-</button>
+        <button id="0" vlaue="0" onclick="changeNumber(0)">0</button>
+        <button id="." value="." onclick="changeNumber(`.`)">.</button>
+      </div>
+      <div class="functions">
+        <button id="de" value="" onclick="concatinater()">&gtx</button>
+        <button id="/" value="/" onclick="changeNumber(`/`);clearQuestion()">
+          /
+        </button>
+        <button id="*" value="*" onclick="changeNumber(`*`);clearQuestion()">
+          x
+        </button>
+        <button id="-" value="-" onclick="changeNumber(`-`);clearQuestion()">
+          -
+        </button>
+        <button id="+" value="+" onclick="changeNumber(`+`)">+</button>
+        <button id="=" value="=" onclick="answerFun()">=</button>
+      </div>
+    </div>
+  </div>
+  <div class="modechanger" onclick="toggledark()">
+    <i class="fa fas fa-moon"></i> Darkmode
+  </div>
+</body>
+
+</html>
